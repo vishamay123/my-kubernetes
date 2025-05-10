@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-nginx
+  namespace: nginx
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: cronjob-container
+          labels:
+            app: job
+        spec:
+          containers:
+            - name: job-container
+              image: busybox:latest
+              command:
+                - sh
+                - -c
+                - |
+                  echo "backup started"
+                  echo "backup completed"
+          restartPolicy: OnFailure

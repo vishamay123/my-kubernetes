@@ -1,0 +1,22 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: project-deployment
+  labels: 
+   app: my-app
+spec: 
+  replicas: 2
+  selector:
+   matchLabels:
+     app: my-app
+  template:
+    metadata:
+     name: my-app-pode
+     labels:
+       app: my-app
+    spec: 
+      containers:
+      - name: my-app-containers
+        image: vishamay/notes-app-k8s
+        ports:
+         - containerPort: 8000
