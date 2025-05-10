@@ -1,5 +1,5 @@
-kind: StatefulSet
 apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   name: mysql-statefulset
   namespace: mysql
@@ -11,27 +11,27 @@ spec:
       app: mysql
   template:
     metadata:
-      lablels:
+      labels:          # ✅ fixed 'lablels'
         app: mysql
     spec:
       containers:
         - name: mysql
-          image:  mysql:8.0
+          image: mysql:8.0
           ports:
-           - containerPort: 3306
+            - containerPort: 3306
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
             - name: MYSQL_DATABASE
               value: vicky
-          volumwMounts:
+          volumeMounts:         # ✅ fixed 'volumwMounts'
             - mountPath: /var/lib/mysql
-              name: mysql-data
-  volumes:
-  - metadata:
-      name: mysql-data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 1Gi
+              name: mysql-data # ✅ fixed 'ame'
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
